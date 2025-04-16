@@ -1,0 +1,41 @@
+# Build Folders
+bin/
+obj/
+out/
+
+# User-specific Files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# logs
+*.log
+
+# Database File
+*.db
+*.db-shm
+*.db-wal
+
+# EF outputs
+Migrations/
+
+# Publishing output
+publish/
+wwwroot/lib/
+
+# Packages
+packages/
+*.nupkg
+
+# temp files
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# JetBrains / Rider
+.idea/
