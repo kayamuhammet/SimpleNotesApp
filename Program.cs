@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using SimpleNotesApp.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("database")));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

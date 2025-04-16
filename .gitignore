@@ -37,5 +37,4 @@ packages/
 *.bak
 *.cache
 
-# JetBrains / Rider
-.idea/
+
