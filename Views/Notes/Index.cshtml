@@ -1,0 +1,26 @@
+@model IEnumerable<SimpleNotesApp.Models.Note>
+
+    @{
+        ViewData["Title"] = "Tüm Notlar";
+    }
+    
+    <div class="container mt-4">
+        <h2>@ViewData["Title"]</h2>
+        <a class="btn btn-primary mb-3" asp-action="Create">Yeni Not Ekle</a>
+    
+        @foreach (var note in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@note.Title</h5>
+                    <p class="card-text">@note.Context</p>
+                    <small class="text-muted">@note.CreatedAt.ToString("g")</small>
+                    <div class="mt-2">
+                        <a asp-action="Edit" asp-route-id="@note.Id" class="btn btn-sm btn-warning">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@note.Id" class="btn btn-sm btn-danger">Sil</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    

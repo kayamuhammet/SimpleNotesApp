@@ -1,0 +1,23 @@
+@model SimpleNotesApp.Models.Note
+
+@{
+    ViewData["Title"] = "Notu Sil";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+    <h4>Bu not silinsin mi?</h4>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Context</p>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger mt-3">Evet, Sil</button>
+        <a asp-action="Index" class="btn btn-secondary mt-3">İptal</a>
+    </form>
+</div>

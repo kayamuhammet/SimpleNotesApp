@@ -1,0 +1,25 @@
+@model SimpleNotesApp.Models.Note
+
+@{
+    ViewData["Title"] = "Notu Düzenle";
+}
+
+<div class="container mt-4">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Context" class="form-label"></label>
+            <textarea asp-for="Context" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Context" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

@@ -103,7 +103,7 @@ namespace SimpleNotesApp.Controllers
             return View(note);
         }
 
-        [HttpPost, ActionName("Index")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
