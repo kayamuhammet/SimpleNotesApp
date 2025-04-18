@@ -18,6 +18,12 @@
             <textarea asp-for="Context" class="form-control" rows="5"></textarea>
             <span asp-validation-for="Context" class="text-danger"></span>
         </div>
+        <div class="mb-3">
+            <label for="CategoryId" class="form-label">Kategori</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                <option value="">-- Seçiniz --</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Kaydet</button>
         <a asp-action="Index" class="btn btn-secondary">İptal</a>
     </form>

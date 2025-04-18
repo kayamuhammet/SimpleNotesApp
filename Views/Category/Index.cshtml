@@ -1,0 +1,12 @@
+@model IEnumerable<SimpleNotesApp.Models.Category>
+
+    <h2>Kategoriler</h2>
+    <a class="btn btn-primary mb-2" asp-action="Create">Yeni Kategori</a>
+    
+    <ul class="list-group">
+        @foreach (var category in Model)
+        {
+            <li class="list-group-item">@category.Name</li>
+        }
+    </ul>
+    

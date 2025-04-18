@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimpleNotesApp.Data;
 using SimpleNotesApp.Models;
@@ -14,6 +15,11 @@ namespace SimpleNotesApp.Controllers
             _context = context;
         }
 
+        private void PopulateCategories()
+        {
+            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
+        }
+
         // Get: Notes
         public async Task<IActionResult> Index()
         {
@@ -24,6 +30,7 @@ namespace SimpleNotesApp.Controllers
         // Get: Create
         public IActionResult Create()
         {
+            PopulateCategories();
             return View();
         }
 
@@ -38,6 +45,7 @@ namespace SimpleNotesApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            PopulateCategories();
             return View(note);
         }
 
@@ -48,7 +56,7 @@ namespace SimpleNotesApp.Controllers
 
             var note = await _context.Notes.FindAsync(id);
             if (note == null) return NotFound();
-
+            PopulateCategories();
             return View(note);
         }
 
@@ -82,6 +90,7 @@ namespace SimpleNotesApp.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            PopulateCategories();
             return View(note);
         }
 
