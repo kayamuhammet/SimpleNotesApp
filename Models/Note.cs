@@ -14,5 +14,9 @@ namespace SimpleNotesApp.Models
         public string? Context {get; set;}
 
         public DateTime CreatedAt {get; set;} = DateTime.Now;
+
+        // Category
+        public int? CategoryId {get; set;}
+        public Category? Category {get; set;}
     }
 }
