@@ -1,26 +1,194 @@
 @model IEnumerable<SimpleNotesApp.Models.Note>
-
     @{
-        ViewData["Title"] = "Tüm Notlar";
+        ViewData["Title"] = "Notlar";
+        var selectedCategoryId = ViewBag.SelectedCategoryId as int?;
+        var categories = ViewBag.Categories as List<Category>;
+        var selectedNote = ViewBag.SelectedNote as Note;
+    }
+    @section Styles {
+        <link rel="stylesheet" href="~/css/notes/notes.css" asp-append-version="true">
+    }
+
+    @section Scripts {
+        <script src="~/js/notes/notes.js" asp-append-version="true"></script>
     }
     
-    <div class="container mt-4">
-        <h2>@ViewData["Title"]</h2>
-        <a class="btn btn-primary mb-3" asp-action="Create">Yeni Not Ekle</a>
     
-        @foreach (var note in Model)
+    <div class="container-fluid">
+        
+        @if (TempData["Success"] != null)
         {
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">@note.Title</h5>
-                    <p class="card-text">@note.Context</p>
-                    <small class="text-muted">@note.CreatedAt.ToString("g")</small>
-                    <div class="mt-2">
-                        <a asp-action="Edit" asp-route-id="@note.Id" class="btn btn-sm btn-warning">Düzenle</a>
-                        <a asp-action="Delete" asp-route-id="@note.Id" class="btn btn-sm btn-danger">Sil</a>
-                    </div>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
+        
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    
+        <div class="row pb-5">
+    
+            <!-- Category Sidebar -->
+            <div id="sidebar" class="col-md-2 sidebar">
+                <div class="category-title text-center">
+                    <button type="button" class="btn btn-sm btn-success rounded-circle" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                    Kategoriler
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var category in categories)
+                    {
+                        <a asp-controller="Notes" asp-action="Index" asp-route-categoryId="@category.Id"
+                           class="list-group-item list-group-item-action @(category.Id == selectedCategoryId ? "active" : "")">
+                            @category.Name
+                        </a>
+                    }
+                </ul>
+            </div>
+    
+            <!-- Note List -->
+            <div id="noteList" class="col-md-3 note-list">
+                <div class="notes-title text-center">
+                    <button type="button" class="btn btn-sm btn-success rounded-circle ms-2" data-bs-toggle="modal" data-bs-target="#addNoteModal">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                    Notlar
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var note in Model)
+                    {
+                        <a asp-controller="Notes" asp-action="Index"
+                           asp-route-categoryId="@note.CategoryId" asp-route-noteId="@note.Id"
+                           class="list-group-item list-group-item-action">
+                            <strong>@note.Title</strong>
+                            <div class="note-preview">
+                                @{
+                                    var plainText = System.Text.RegularExpressions.Regex.Replace(Html.Raw(note.Context).ToString(), "<.*?>", string.Empty);
+                                    @(plainText.Length > 30 
+                                        ? new string(plainText.Take(30).ToArray()) + "..." 
+                                        : plainText)
+                                }
+                            </div>
+                        </a>
+                    }
+                </ul>
+            </div>
+    
+            <!-- Note Detail -->
+        <div id="noteDetail" class="col-md-7 note-detail">
+            <div class="note-detail-header d-flex align-items-center mb-4">
+                <!-- Left Side - Toggle Button -->
+                <div class="flex-shrink-0">
+                    <button id="toggleSidebars" type="button" class="btn btn-outline-info" title="Panelleri Aç/Kapat">
+                        <i class="bi bi-layout-sidebar" id="toggleIcon"></i>
+                    </button>
+                </div>
+                
+                <!-- Centre Side - Title -->
+                <div class="flex-grow-1 text-center">
+                    @if (selectedNote != null)
+                    {
+                        <h3 class="mb-0">@selectedNote.Title</h3>
+                    }
+                    else
+                    {
+                        <h3 class="mb-0">Not Detayı</h3>
+                    }
+                </div>
+                
+                <!-- Right Side - Edit and Delete Buttons -->
+                @if (selectedNote != null)
+                {
+                    <div class="flex-shrink-0">
+                        <a asp-controller="Notes" asp-action="Edit" asp-route-id="@selectedNote.Id" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil"></i> Düzenle
+                        </a>
+                        <a asp-controller="Notes" asp-action="Delete" asp-route-id="@selectedNote.Id" class="btn btn-outline-danger btn-sm ms-2">
+                            <i class="bi bi-trash"></i> Sil
+                        </a>
+                    </div>
+                }
+            </div>
+            
+            @if (selectedNote != null)
+            {
+                <div class="note-content">
+                    <div class="note-text quill-content">@Html.Raw(selectedNote.Context)</div>
+                </div>
+            }
+            else
+            {
+                <div class="text-muted mt-5 text-center">🖱️ Bir not seçin...</div>
+            }
+        </div>
+    
+        </div>
     </div>
+
+                                <!-- Modals --> 
+
+    <!-- Add Note Modal -->
+    <div class="modal fade" id="addNoteModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Yeni Not</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form asp-controller="Notes" asp-action="Create" method="post" id="addNoteForm">
+              <div class="modal-body">
+                @Html.AntiForgeryToken()
+                <input type="text" class="form-control mb-3" name="Title" placeholder="Not Başlığı" required>
+                <div id="noteEditor" style=" margin-bottom: 15px;"></div>
+                <textarea style="display: none" name="Context" id="noteContext"></textarea>
+                <select class="form-select" name="CategoryId">
+                  @foreach (var category in categories)
+                  {
+                      <option value="@category.Id" selected="@(category.Id == selectedCategoryId)">@category.Name</option>
+                  }
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-primary">Ekle</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Yeni Kategori</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <form asp-controller="Category" asp-action="Create" method="post">
+              <div class="modal-body">
+                @Html.AntiForgeryToken()
+                <input type="text" class="form-control" name="Name" placeholder="Kategori Adı" required>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="submit" class="btn btn-primary">Ekle</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    
+
+    
+
     

@@ -21,10 +21,34 @@ namespace SimpleNotesApp.Controllers
         }
 
         // Get: Notes
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? categoryId, int? noteId)
         {
-            var notes = await _context.Notes.OrderByDescending(n => n.CreatedAt).ToListAsync();
-            return View(notes);
+            var categories = _context.Categories.ToList();
+            
+            // If no category is selected, select the first category
+            if (!categoryId.HasValue && categories.Count > 0)
+            {
+                categoryId = categories.FirstOrDefault()?.Id;
+            }
+            
+            var notes = _context.Notes.Include(n => n.Category).AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                notes = notes.Where(n => n.CategoryId == categoryId.Value);
+            }
+
+            Note? selectedNote = null;
+            if (noteId.HasValue)
+            {
+                selectedNote = _context.Notes.FirstOrDefault(n => n.Id == noteId.Value);
+            }
+
+            ViewBag.Categories = categories;
+            ViewBag.SelectedCategoryId = categoryId;
+            ViewBag.SelectedNote = selectedNote;
+
+            return View(notes.ToList());
         }
 
         // Get: Create
@@ -41,9 +65,17 @@ namespace SimpleNotesApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                _context.Add(note);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                try
+                {
+                    _context.Add(note);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Not başarıyla oluşturuldu.";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Not oluşturulurken bir hata oluştu: " + ex.Message);
+                }
             }
             PopulateCategories();
             return View(note);
@@ -59,8 +91,6 @@ namespace SimpleNotesApp.Controllers
             PopulateCategories();
             return View(note);
         }
-
-        
 
         // Post: Edit
         [HttpPost]
@@ -78,6 +108,8 @@ namespace SimpleNotesApp.Controllers
                 {
                     _context.Update(note);
                     await _context.SaveChangesAsync();
+                    TempData["Success"] = "Not başarıyla güncellendi.";
+                    return RedirectToAction("Index");
                 }
                 catch(DbUpdateConcurrencyException)
                 {
@@ -88,21 +120,25 @@ namespace SimpleNotesApp.Controllers
                     else
                         throw;
                 }
-                return RedirectToAction("Index");
+                catch (Exception ex)
+                {
+                    TempData["Error"] = "Not güncellenirken bir hata oluştu: " + ex.Message;
+                }
             }
             PopulateCategories();
             return View(note);
         }
 
         // Delete
-
         public async Task<IActionResult> Delete(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
-            var note = await _context.Notes.FirstOrDefaultAsync(i => i.Id == id);
+            var note = await _context.Notes
+                .Include(n => n.Category)
+                .FirstOrDefaultAsync(i => i.Id == id);
 
             if(note == null)
             {
@@ -116,18 +152,22 @@ namespace SimpleNotesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var note = await _context.Notes.FindAsync(id);
-            if(note != null)
+            try
             {
-                _context.Notes.Remove(note);
-
-                 await _context.SaveChangesAsync();
-
+                var note = await _context.Notes.FindAsync(id);
+                if(note != null)
+                {
+                    _context.Notes.Remove(note);
+                    await _context.SaveChangesAsync();
+                    TempData["Success"] = "Not başarıyla silindi.";
+                }
                 return RedirectToAction(nameof(Index));
             }
-
-            return View("Index");
-            
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Not silinirken bir hata oluştu: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
     }
 }

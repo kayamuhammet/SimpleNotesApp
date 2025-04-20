@@ -1,0 +1,142 @@
+.note-text blockquote {
+    border-left: 4px solid #6c757d;
+    margin: 1em 0;
+    padding: 1em 1.5em;
+    background-color: #f8f9fa;
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.note-text blockquote::before {
+    content: '\201C'; 
+    font-size: 4em;
+    position: absolute;
+    left: 10px;
+    top: -20px;
+    color: #e9ecef;
+    z-index: 0;
+    font-family: serif;
+}
+
+.note-text blockquote p {
+    position: relative;
+    z-index: 1;
+}
+
+.note-text pre {
+    margin: 0;
+    background-color: #2d2d2d;
+    color: #ccc;
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.note-text code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.ql-syntax {
+    background-color: #2d2d2d !important;
+    color: #f8f8f2 !important;
+    overflow-x: auto;
+    white-space: pre;
+    padding: 1em;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+
+.quill-content h1, .quill-content h2, .quill-content h3,
+.quill-content h4, .quill-content h5, .quill-content h6 {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.quill-content p {
+    margin-bottom: 1rem;
+}
+
+.quill-content ul, .quill-content ol {
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.quill-content a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.quill-content img {
+    max-width: 50%;
+    height: auto;
+}
+
+.quill-content .ql-align-center {
+    text-align: center;
+}
+
+.quill-content .ql-align-right {
+    text-align: right;
+}
+
+.quill-content .ql-align-justify {
+    text-align: justify;
+}
+
+
+.note-preview {
+    color: #6c757d;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.col-md-12 .note-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+
+#toggleSidebars:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.ql-editor {
+    font-size: 16px !important;
+    font-family: 'Poppins', sans-serif !important;
+    min-height: 300px;
+}
+
+.ql-editor p {
+    font-size: 15px !important;
+    line-height: 1.6;
+}
+
+.ql-editor blockquote {
+    border-left: 4px solid #ccc;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    background-color: #f8f9fa;
+    font-style: italic;
+}
+
+.ql-editor pre.ql-syntax {
+    background-color: #2d2d2d !important;
+    color: #f8f8f2 !important;
+    overflow-x: auto;
+    white-space: pre;
+    padding: 1em;
+    border-radius: 4px;
+}

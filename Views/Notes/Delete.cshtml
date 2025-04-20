@@ -4,20 +4,62 @@
     ViewData["Title"] = "Notu Sil";
 }
 
-<div class="container mt-4">
-    <h2>@ViewData["Title"]</h2>
-    <h4>Bu not silinsin mi?</h4>
+@section Styles {
+    <link rel="stylesheet" href="~/css/notes/notes.css" asp-append-version="true">
+}
 
-    <div class="card mt-3">
-        <div class="card-body">
-            <h5 class="card-title">@Model.Title</h5>
-            <p class="card-text">@Model.Context</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-danger mb-4">@ViewData["Title"]</h2>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>Uyarı:</strong> Bu notu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                    </div>
+                    
+                    <div class="card bg-light mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Not Bilgileri</h5>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-3">Başlık:</dt>
+                                <dd class="col-sm-9 fw-bold">@Model.Title</dd>
+                                
+                                <dt class="col-sm-3">Kategori:</dt>
+                                <dd class="col-sm-9">
+                                    @(Model.Category != null ? Model.Category.Name : "Kategorisiz")
+                                </dd>
+                                
+                                <dt class="col-sm-3">Oluşturulma:</dt>
+                                <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5 class="mb-0">Not İçeriği</h5>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="card-text">@Html.Raw(Model.Context)</div>
+                        </div>
+                    </div>
+                    
+                    <form asp-action="Delete" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Geri Dön
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Notu Sil
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-
-    <form asp-action="Delete" method="post">
-        <input type="hidden" asp-for="Id" />
-        <button type="submit" class="btn btn-danger mt-3">Evet, Sil</button>
-        <a asp-action="Index" class="btn btn-secondary mt-3">İptal</a>
-    </form>
 </div>

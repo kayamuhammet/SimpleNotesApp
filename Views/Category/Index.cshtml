@@ -1,12 +1,61 @@
 @model IEnumerable<SimpleNotesApp.Models.Category>
 
-    <h2>Kategoriler</h2>
-    <a class="btn btn-primary mb-2" asp-action="Create">Yeni Kategori</a>
-    
-    <ul class="list-group">
-        @foreach (var category in Model)
-        {
-            <li class="list-group-item">@category.Name</li>
-        }
-    </ul>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="mb-0 text-primary">Kategoriler</h2>
+                        <a class="btn btn-success" asp-action="Create">
+                            <i class="bi bi-plus-lg"></i> Yeni Kategori
+                        </a>
+                    </div>
+                    
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info text-center">
+                            Henüz hiç kategori bulunmuyor. Yeni kategori ekleyerek başlayabilirsiniz.
+                        </div>
+                    }
+                    else 
+                    {
+                        <div class="list-group">
+                            @foreach (var category in Model)
+                            {
+                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center border-0 mb-2 rounded shadow-sm">
+                                    <span class="fw-medium">@category.Name</span>
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary me-1">
+                                            <i class="bi bi-pencil-square"></i> Düzenle
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i> Sil
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     

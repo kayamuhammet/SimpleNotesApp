@@ -4,28 +4,57 @@
     ViewData["Title"] = "Notu Düzenle";
 }
 
-<div class="container mt-4">
-    <h2>@ViewData["Title"]</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/notes/notes.css" asp-append-version="true">
+}
 
-    <form asp-action="Edit">
-        <input type="hidden" asp-for="Id" />
-        <div class="mb-3">
-            <label asp-for="Title" class="form-label"></label>
-            <input asp-for="Title" class="form-control" />
-            <span asp-validation-for="Title" class="text-danger"></span>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/notes/edit.js" asp-append-version="true"></script>
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-primary mb-4">@ViewData["Title"]</h2>
+
+                    <form asp-action="Edit" id="editForm">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label">Başlık</label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Context" class="form-label">İçerik</label>
+                            <div id="editor" style="height: 800px;"></div>
+                            <textarea asp-for="Context" style="display: none" id="hiddenContext"></textarea>
+                            <span asp-validation-for="Context" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="CategoryId" class="form-label">Kategori</label>
+                            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+                                <option value="">-- Kategori Seçiniz --</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Geri Dön
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label asp-for="Context" class="form-label"></label>
-            <textarea asp-for="Context" class="form-control" rows="5"></textarea>
-            <span asp-validation-for="Context" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label for="CategoryId" class="form-label">Kategori</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
-                <option value="">-- Seçiniz --</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Güncelle</button>
-        <a asp-action="Index" class="btn btn-secondary">İptal</a>
-    </form>
+    </div>
 </div>
+

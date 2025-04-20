@@ -1,0 +1,54 @@
+@model SimpleNotesApp.Models.Category
+
+@{
+    ViewData["Title"] = "Kategori Sil";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="text-danger mb-4">Kategori Sil</h2>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>Uyarı:</strong> Bu kategoriyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                    </div>
+                    
+                    @if (ViewBag.RelatedNotesCount > 0)
+                    {
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-info-circle-fill me-2"></i>
+                            Bu kategoriye ait <strong>@ViewBag.RelatedNotesCount</strong> not bulunmaktadır. 
+                            Kategori silindiğinde bu notlar kategorisiz olarak kalacaktır.
+                        </div>
+                    }
+                    
+                    <div class="card bg-light mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Kategori Bilgileri</h5>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Kategori Adı:</dt>
+                                <dd class="col-sm-8 fw-bold">@Model.Name</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <form asp-action="Delete" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Geri Dön
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Kategoriyi Sil
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
