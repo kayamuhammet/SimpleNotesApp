@@ -21,7 +21,18 @@
     // Creates a dynamic class name using the controller name. For example, it becomes "page-home" for the "Home" controller.
     var bodyClass = $"page-{controllerName}";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 <body class="@bodyClass">
+    <div class="spinner" id="loadingSpinner">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+    <div id="notification" style="display: none;" class="alert alert-success" role="alert" >
+        <strong>Başarılı!</strong> Çıkış yapıldı. 5 saniye sonra anasayfaya yönlendirileceksiniz.
+        <span id="countdown"></span>
+    </div>
     <header class="custom-header">
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container-fluid">
@@ -40,17 +51,21 @@
                                 <i class="bi bi-house-door me-1"></i> Ana Sayfa
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @(controllerName == "notes" ? "active" : "")" asp-controller="Notes" asp-action="Index">
-                                <i class="bi bi-sticky me-1"></i> Notlar
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @(controllerName == "category" ? "active" : "")" asp-controller="Category" asp-action="Index">
-                                <i class="bi bi-folder me-1"></i> Kategoriler
-                            </a>
-                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(controllerName == "notes" ? "active" : "")" asp-controller="Notes" asp-action="Index">
+                                    <i class="bi bi-sticky me-1"></i> Notlar
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(controllerName == "category" ? "active" : "")" asp-controller="Category" asp-action="Index">
+                                    <i class="bi bi-folder me-1"></i> Kategoriler
+                                </a>
+                            </li>
+                        }
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

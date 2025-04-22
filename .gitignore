@@ -37,4 +37,5 @@ packages/
 *.bak
 *.cache
 
-
+# settings
+appsettings.Development.json

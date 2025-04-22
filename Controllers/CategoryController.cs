@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleNotesApp.Data;
 using SimpleNotesApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleNotesApp.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
@@ -28,7 +31,7 @@ namespace SimpleNotesApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Categories.Add(model);
                 _context.SaveChanges();
@@ -37,7 +40,7 @@ namespace SimpleNotesApp.Controllers
             return View();
         }
 
-        
+
         public IActionResult Edit(int? id)
         {
             if (id == null)
@@ -53,7 +56,7 @@ namespace SimpleNotesApp.Controllers
             return View(category);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Category category)
@@ -87,7 +90,7 @@ namespace SimpleNotesApp.Controllers
             return View(category);
         }
 
-        
+
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -109,50 +112,50 @@ namespace SimpleNotesApp.Controllers
             return View(category);
         }
 
-       
+
         [HttpPost, ActionName("Delete")]
-[ValidateAntiForgeryToken]
-public IActionResult DeleteConfirmed(int id)
-{
-    var category = _context.Categories.Find(id);
-    if (category != null)
-    {
-        try 
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
         {
-            // Kategorisiz kategori var mı kontrol et
-            var unassignedCategory = _context.Categories.FirstOrDefault(c => c.Name == "Kategorisiz");
-            if (unassignedCategory == null)
+            var category = _context.Categories.Find(id);
+            if (category != null)
             {
-                // Eğer yoksa, yeni bir "Kategorisiz" kategorisi oluştur
-                unassignedCategory = new Category { Name = "Kategorisiz" };
-                _context.Categories.Add(unassignedCategory);
-                _context.SaveChanges();
+                try
+                {
+
+                    var unassignedCategory = _context.Categories.FirstOrDefault(c => c.Name == "Kategorisiz");
+                    if (unassignedCategory == null)
+                    {
+
+                        unassignedCategory = new Category { Name = "Kategorisiz" };
+                        _context.Categories.Add(unassignedCategory);
+                        _context.SaveChanges();
+                    }
+
+
+                    var relatedNotes = _context.Notes.Where(n => n.CategoryId == id).ToList();
+                    foreach (var note in relatedNotes)
+                    {
+                        note.CategoryId = unassignedCategory.Id;
+                        note.Category = unassignedCategory;
+                    }
+                    _context.UpdateRange(relatedNotes);
+                    _context.SaveChanges();
+
+
+                    _context.Categories.Remove(category);
+                    _context.SaveChanges();
+
+                    TempData["Success"] = "Kategori başarıyla silindi.";
+                }
+                catch (Exception ex)
+                {
+                    TempData["Error"] = "Kategori silinirken bir hata oluştu: " + ex.Message;
+                }
             }
 
-            // İlişkili notları bul ve kategorisini güncelle
-            var relatedNotes = _context.Notes.Where(n => n.CategoryId == id).ToList();
-            foreach (var note in relatedNotes)
-            {
-                note.CategoryId = unassignedCategory.Id; // Kategorisiz kategoriye ata
-                note.Category = unassignedCategory; // Kategoriyi güncelle
-            }
-            _context.UpdateRange(relatedNotes);
-            _context.SaveChanges();
-
-            // Kategoriyi sil
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
-
-            TempData["Success"] = "Kategori başarıyla silindi.";
+            return RedirectToAction(nameof(Index));
         }
-        catch (Exception ex)
-        {
-            TempData["Error"] = "Kategori silinirken bir hata oluştu: " + ex.Message;
-        }
-    }
-
-    return RedirectToAction(nameof(Index));
-}
 
         private bool CategoryExists(int id)
         {

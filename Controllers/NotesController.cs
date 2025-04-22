@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using SimpleNotesApp.Models;
 
 namespace SimpleNotesApp.Controllers
 {
+    [Authorize]
     public class NotesController : Controller
     {
         private readonly AppDbContext _context;

@@ -1,0 +1,145 @@
+/* General Structure */
+.auth-container,
+.auth-container-register {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.auth-container-register {
+    background: linear-gradient(135deg, #f5faf5 0%, #c9ffcd 100%);
+}
+
+.auth-card-wrapper {
+    width: 75%;
+}
+
+/* Card Styles */
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    background: linear-gradient(135deg, #a8bad5, #01670d) !important;
+}
+
+.card-header-login {
+    background: linear-gradient(135deg, #0d6efd, #0099ff) !important;
+}
+
+.card-footer {
+    background-color: #c6ffba !important;
+    border-radius: 0 0 15px 15px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.login-card-footer {
+    background: linear-gradient(135deg, #0d6efd, #86bdff);
+    border-radius: 0 0 15px 15px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-login,
+.card-register{
+    border-radius: 15px !important;
+}
+
+
+
+/* Form Styles */
+.form-floating input.form-control {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-floating input.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+/* Button Styles */
+.btn-register,
+.btn-login-custom {
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.btn-register {
+    background: #01670d;
+}
+
+.btn-register:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login-custom {
+    background: linear-gradient(135deg, #0d6efd, #0099ff);
+    color: white;
+    border: none;
+}
+
+.btn-login-custom:hover {
+    background: linear-gradient(135deg, #0099ff, #0d6efd);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+    color: white;
+}
+
+/* Title and Text Styles */
+.register-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.register-button,
+.login-button {
+    text-align: center;
+}
+
+.login-button {
+    margin-top: 10px;
+}
+
+/* Link Styles */
+.card-footer a {
+    color: #0d6efd !important;
+    font-weight: 500;
+}
+
+.card-footer a:hover {
+    color: #0099ff !important;
+    text-decoration: underline !important;
+}
+
+/* Spinner */
+.spinner {
+    display: none; /* Başlangıçta gizli */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Diğer içeriklerin üstünde görünmesi için */
+}
+
+.blur {
+    filter: blur(5px); /* İstediğiniz bulanıklık seviyesini ayarlayın */
+    transition: filter 0.3s ease; /* Geçiş efekti için */
+}
+
+
