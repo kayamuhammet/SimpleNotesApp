@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,15 +18,11 @@ namespace SimpleNotesApp.Controllers
             _context = context;
         }
 
-        private void PopulateCategories()
-        {
-            ViewBag.Categories = new SelectList(_context.Categories, "Id", "Name");
-        }
-
         // Get: Notes
         public IActionResult Index(int? categoryId, int? noteId)
         {
-            var categories = _context.Categories.ToList();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var categories = _context.Categories.Where(c => c.UserId == userId). ToList();
             
             // If no category is selected, select the first category
             if (!categoryId.HasValue && categories.Count > 0)
@@ -33,7 +30,7 @@ namespace SimpleNotesApp.Controllers
                 categoryId = categories.FirstOrDefault()?.Id;
             }
             
-            var notes = _context.Notes.Include(n => n.Category).AsQueryable();
+            var notes = _context.Notes.Include(n => n.Category).Where(n => n.UserId == userId);
 
             if (categoryId.HasValue)
             {
@@ -43,7 +40,7 @@ namespace SimpleNotesApp.Controllers
             Note? selectedNote = null;
             if (noteId.HasValue)
             {
-                selectedNote = _context.Notes.FirstOrDefault(n => n.Id == noteId.Value);
+                selectedNote = notes.FirstOrDefault(n => n.Id == noteId.Value);
             }
 
             ViewBag.Categories = categories;
@@ -67,17 +64,12 @@ namespace SimpleNotesApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                try
-                {
-                    _context.Add(note);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = "Not başarıyla oluşturuldu.";
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Not oluşturulurken bir hata oluştu: " + ex.Message);
-                }
+                note.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                note.CreatedAt = DateTime.Now;
+                _context.Add(note);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Not başarıyla oluşturuldu.";
+                return RedirectToAction(nameof(Index));
             }
             PopulateCategories();
             return View(note);
@@ -88,7 +80,10 @@ namespace SimpleNotesApp.Controllers
         {
             if (id == null) return NotFound();
 
-            var note = await _context.Notes.FindAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var note = await _context.Notes.
+                FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
+            
             if (note == null) return NotFound();
             PopulateCategories();
             return View(note);
@@ -108,19 +103,24 @@ namespace SimpleNotesApp.Controllers
             {
                 try
                 {
-                    _context.Update(note);
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var existingNote = await _context.Notes
+                        .FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
+                    
+                    if(existingNote == null)
+                        return NotFound();
+                    
+                    existingNote.Title = note.Title;
+                    existingNote.Context = note.Context;
+                    existingNote.CategoryId = note.CategoryId;
+                    
                     await _context.SaveChangesAsync();
                     TempData["Success"] = "Not başarıyla güncellendi.";
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
                 catch(DbUpdateConcurrencyException)
                 {
-                    if(!_context.Notes.Any(i => i.Id == id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                        throw;
+                    ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu.");
                 }
                 catch (Exception ex)
                 {
@@ -138,9 +138,10 @@ namespace SimpleNotesApp.Controllers
             {
                 return NotFound();
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var note = await _context.Notes
                 .Include(n => n.Category)
-                .FirstOrDefaultAsync(i => i.Id == id);
+                .FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
 
             if(note == null)
             {
@@ -154,15 +155,19 @@ namespace SimpleNotesApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                var note = await _context.Notes.FindAsync(id);
-                if(note != null)
+                var note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
+                
+                if(note == null)
                 {
-                    _context.Notes.Remove(note);
-                    await _context.SaveChangesAsync();
-                    TempData["Success"] = "Not başarıyla silindi.";
+                    return NotFound();
                 }
+                
+                _context.Notes.Remove(note);
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Not başarıyla silindi.";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -170,6 +175,19 @@ namespace SimpleNotesApp.Controllers
                 TempData["Error"] = "Not silinirken bir hata oluştu: " + ex.Message;
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        private void PopulateCategories()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.Categories = _context.Categories
+                .Where(c => c.UserId == userId)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                })
+                .ToList();
         }
     }
 }

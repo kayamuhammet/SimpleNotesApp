@@ -4,6 +4,7 @@ using SimpleNotesApp.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace SimpleNotesApp.Controllers
 {
@@ -17,9 +18,11 @@ namespace SimpleNotesApp.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Categories.ToList());
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            return View(await _context.Categories.Where(c => c.UserId == userId).ToListAsync());
         }
 
         public IActionResult Create()
@@ -29,26 +32,28 @@ namespace SimpleNotesApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category model)
+        public async Task<IActionResult> Create(Category model)
         {
             if (ModelState.IsValid)
             {
-                _context.Categories.Add(model);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                _context.Add(model);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(model);
         }
 
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = _context.Categories.Find(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
             if (category == null)
             {
                 return NotFound();
@@ -59,7 +64,7 @@ namespace SimpleNotesApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category category)
+        public async Task<IActionResult> Edit(int id, Category category)
         {
             if (id != category.Id)
             {
@@ -70,36 +75,38 @@ namespace SimpleNotesApp.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    _context.SaveChanges();
-                    TempData["Success"] = "Kategori başarıyla güncellendi.";
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var existingCategory = await _context.Categories
+                        .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+                    
+                    if(existingCategory == null)
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+
+                    existingCategory.Name = category.Name;
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
+                catch (DbUpdateConcurrencyException)
+                {
+                    ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu.");
+                }
             }
             return View(category);
         }
 
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = _context.Categories
-                .FirstOrDefault(m => m.Id == id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
             if (category == null)
             {
                 return NotFound();
@@ -115,46 +122,55 @@ namespace SimpleNotesApp.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = _context.Categories.Find(id);
-            if (category != null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            try
             {
-                try
+                var unassignedCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Kategorisiz" && c.UserId == userId);
+
+                if(unassignedCategory == null)
                 {
-
-                    var unassignedCategory = _context.Categories.FirstOrDefault(c => c.Name == "Kategorisiz");
-                    if (unassignedCategory == null)
+                    unassignedCategory = new Category
                     {
+                        Name = "Kategorisiz",UserId = userId
+                    };
+                    _context.Categories.Add(unassignedCategory);
+                    await _context.SaveChangesAsync();
+                }
 
-                        unassignedCategory = new Category { Name = "Kategorisiz" };
-                        _context.Categories.Add(unassignedCategory);
-                        _context.SaveChanges();
-                    }
+                var category = await _context.Categories
+                    .Include(c => c.Notes)
+                    .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
-
-                    var relatedNotes = _context.Notes.Where(n => n.CategoryId == id).ToList();
-                    foreach (var note in relatedNotes)
+                if (category == null)
+                {
+                    return NotFound();
+                }
+                
+                if (category.Notes != null)
+                {
+                    foreach(var note in category.Notes)
                     {
                         note.CategoryId = unassignedCategory.Id;
                         note.Category = unassignedCategory;
                     }
-                    _context.UpdateRange(relatedNotes);
-                    _context.SaveChanges();
-
-
-                    _context.Categories.Remove(category);
-                    _context.SaveChanges();
-
-                    TempData["Success"] = "Kategori başarıyla silindi.";
                 }
-                catch (Exception ex)
-                {
-                    TempData["Error"] = "Kategori silinirken bir hata oluştu: " + ex.Message;
-                }
+
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Kategori başarıyla silindi ve notlar 'Kategorisiz' kategorisine taşındı.";
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = "Kategori silinirken bir hata oluştu: " + ex.Message;
+                return RedirectToAction(nameof(Index));
             }
 
-            return RedirectToAction(nameof(Index));
         }
 
         private bool CategoryExists(int id)
