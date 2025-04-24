@@ -168,3 +168,84 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+
+
+function printNote() {
+    const noteTitle = document.querySelector('.note-detail-header h3').innerText;
+    const noteContent = document.querySelector('.note-content').innerHTML;
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>${noteTitle}</title>
+            <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" rel="stylesheet">
+            <style>
+                body { 
+                    font-family: Arial, sans-serif; 
+                    padding: 20px; 
+                }
+                .note-title { 
+                    font-size: 24px; 
+                    margin-bottom: 20px; 
+                }
+                .note-content { 
+                    font-size: 14px; 
+                    line-height: 1.6; 
+                }
+                /* Code Blocks */
+                pre {
+                    background:rgb(255, 253, 235);
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 15px;
+                    margin: 15px 0;
+                    overflow-x: auto;
+                }
+                .ql-syntax {
+                    font-family: 'Consolas', 'Monaco', monospace;
+                    background:rgb(221, 255, 235);
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 15px;
+                    margin: 15px 0;
+                    white-space: pre-wrap;
+                }
+                code {
+                    font-family: 'Consolas', 'Monaco', monospace;
+                    padding: 2px 5px;
+                    background:rgb(255, 253, 235);
+                    border-radius: 3px;
+                }
+                @media print {
+                    pre, .ql-syntax {
+                        white-space: pre-wrap;
+                        word-wrap: break-word;
+                        border: 1px solid #ddd;
+                        page-break-inside: avoid;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="note-title">${noteTitle}</div>
+            <div class="note-content">${noteContent}</div>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+            <script>
+                document.querySelectorAll('pre code, .ql-syntax').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            </script>
+        </body>
+        </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
