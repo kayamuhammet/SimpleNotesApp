@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Simple Notes App</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>A simple and useful note-taking app where you can easily organize and manage your notes into categories.</value>
+  </data>
+  <data name="EasyNoteTakingTitle" xml:space="preserve">
+    <value>Easy Note Taking</value>
+  </data>
+  <data name="EasyNoteTakingDescription" xml:space="preserve">
+    <value>Create and manage your notes quickly and easily.</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>Start Now</value>
+  </data>
+  <data name="FeaturesTitle" xml:space="preserve">
+    <value>Features</value>
+  </data>
+  <data name="Feature1" xml:space="preserve">
+    <value>Organize by categories</value>
+  </data>
+  <data name="Feature2" xml:space="preserve">
+    <value>Quick note creation and editing</value>
+  </data>
+  <data name="Feature3" xml:space="preserve">
+    <value>Simple and user-friendly interface</value>
+  </data>
+  <data name="Feature4" xml:space="preserve">
+    <value>Access from all devices</value>
+  </data>
+  <data name="CategoriesTitle" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="CategoriesDescription" xml:space="preserve">
+    <value>Organize your notes by categories to make them easier to find.</value>
+  </data>
+  <data name="NotesTitle" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="NotesDescription" xml:space="preserve">
+    <value>Easily add, edit, and view new notes.</value>
+  </data>
+  <data name="SimpleUI" xml:space="preserve">
+    <value>Simple UI</value>
+  </data>
+  <data name="SimpleUIDescription" xml:space="preserve">
+    <value>Manage your notes quickly with an easy-to-use, clean, and modern interface.</value>
+  </data>
+</root>

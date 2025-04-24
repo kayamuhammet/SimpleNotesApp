@@ -45,3 +45,11 @@ function showLogoutNotification(event) {
         }
     }, 1000);
 }
+
+function changeCulture(culture) {
+    let currentUrl = window.location.href;
+    if (currentUrl.includes('?')) {
+        currentUrl = currentUrl.split('?')[0];
+    }
+    window.location.href = currentUrl + '?culture=' + culture;
+}

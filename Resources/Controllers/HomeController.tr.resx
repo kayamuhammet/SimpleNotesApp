@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Ana Sayfa</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Simple Notes App</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Notlarınızı kolayca kategorilere ayırıp yönetebileceğiniz basit ve kullanışlı bir not alma uygulaması.</value>
+  </data>
+  <data name="EasyNoteTakingTitle" xml:space="preserve">
+    <value>Kolay Not Alma</value>
+  </data>
+  <data name="EasyNoteTakingDescription" xml:space="preserve">
+    <value>Hızlı ve pratik bir şekilde notlarınızı oluşturun ve yönetin.</value>
+  </data>
+  <data name="StartNow" xml:space="preserve">
+    <value>Hemen Başla</value>
+  </data>
+  <data name="FeaturesTitle" xml:space="preserve">
+    <value>Özellikler</value>
+  </data>
+  <data name="Feature1" xml:space="preserve">
+    <value>Kategorilere göre düzenleme</value>
+  </data>
+  <data name="Feature2" xml:space="preserve">
+    <value>Hızlı not ekleme ve düzenleme</value>
+  </data>
+  <data name="Feature3" xml:space="preserve">
+    <value>Basit ve kullanıcı dostu arayüz</value>
+  </data>
+  <data name="Feature4" xml:space="preserve">
+    <value>Tüm cihazlarda erişim</value>
+  </data>
+  <data name="CategoriesTitle" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="CategoriesDescription" xml:space="preserve">
+    <value>Notlarınızı kategorilere ayırarak organize edin ve daha kolay bulun.</value>
+  </data>
+  <data name="NotesTitle" xml:space="preserve">
+    <value>Notlar</value>
+  </data>
+  <data name="NotesDescription" xml:space="preserve">
+    <value>Hızlıca yeni notlar ekleyin, düzenleyin ve görüntüleyin.</value>
+  </data>
+  <data name="SimpleUI" xml:space="preserve">
+    <value>Basit Arayüz</value>
+  </data>
+  <data name="SimpleUIDescription" xml:space="preserve">
+    <value>Kullanımı kolay, temiz ve modern bir arayüz ile hızlıca notlarınızı yönetin.</value>
+  </data>
+</root>

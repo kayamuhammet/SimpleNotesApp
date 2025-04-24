@@ -4,6 +4,9 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
@@ -36,4 +39,25 @@ else
         </div>
     </li>
 }
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+        <i class="bi bi-globe"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end bg-dark">
+        <li>
+            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('tr')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2560px-Flag_of_Turkey.svg.png" alt="TR Flag" width="20" class="me-2"> Turkish
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('en')">
+                <img src="https://flagpedia.net/data/flags/h80/gb.png" alt="EN Flag" width="20" class="me-2">
+                English
+            </a>
+        </li>        
+    </ul>
+</li>
+
+
 </ul>

@@ -1,13 +1,12 @@
-﻿@{
-    ViewData["Title"] = "Ana Sayfa";
+﻿@inject IStringLocalizer<HomeController> Localizer
+@{
+    ViewData["Title"] = Localizer["HomePageTitle"];
 }
-
-
 <div class="container-fluid py-5">
     <div class="row mb-5 justify-content-center">
         <div class="col-md-8 text-center">
-            <h1 class="display-4 mb-3">Simple Notes App</h1>
-            <p class="lead">Notlarınızı kolayca kategorilere ayırıp yönetebileceğiniz basit ve kullanışlı bir not alma uygulaması.</p>
+            <h1 class="display-4 mb-3">@Localizer["AppTitle"]</h1>
+            <p class="lead">@Localizer["AppDescription"]</p>
         </div>
     </div>
 
@@ -17,30 +16,31 @@
                 <div class="row g-0">
                     <div class="col-md-6 bg-primary text-white d-flex align-items-center">
                         <div class="p-5">
-                            <h2 class="fw-bold mb-4">Kolay Not Tutma</h2>
-                            <p class="mb-4">Bu uygulama ile düşüncelerinizi, fikirlerinizi ve hatırlatıcılarınızı kolayca organize edebilirsiniz.</p>
-                            <a asp-controller="Notes" asp-action="Index" class="btn btn-light">Hemen Başla</a>
+                            <h2 class="fw-bold mb-4">@Localizer["EasyNoteTakingTitle"]</h2>
+                            <p class="mb-4">@Localizer["EasyNoteTakingDescription"]</p>
+                            <a asp-controller="Notes" asp-action="Index"
+                                class="btn btn-light">@Localizer["StartNow"]</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="p-5">
-                            <h3 class="fw-bold mb-4">Özellikler</h3>
+                            <h3 class="fw-bold mb-4">@Localizer["FeaturesTitle"]</h3>
                             <ul class="list-unstyled">
                                 <li class="mb-3">
                                     <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                    Kategorilere göre düzenleme
+                                    @Localizer["Feature1"]
                                 </li>
                                 <li class="mb-3">
                                     <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                    Hızlı not ekleme ve düzenleme
+                                    @Localizer["Feature2"]
                                 </li>
                                 <li class="mb-3">
                                     <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                    Basit ve kullanıcı dostu arayüz
+                                    @Localizer["Feature3"]
                                 </li>
                                 <li class="mb-3">
                                     <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                    Tüm cihazlarda erişim
+                                    @Localizer["Feature4"]
                                 </li>
                             </ul>
                         </div>
@@ -54,36 +54,36 @@
         <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
                         <i class="bi bi-folder-plus fs-3"></i>
                     </div>
-                    <h4>Kategoriler</h4>
-                    <p>Notlarınızı kategorilere ayırarak organize edin ve daha kolay bulun.</p>
-                    
+                    <h4>@Localizer["CategoriesTitle"]</h4>
+                    <p>@Localizer["CategoriesDescription"]</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
                         <i class="bi bi-pencil-square fs-3"></i>
                     </div>
-                    <h4>Notlar</h4>
-                    <p>Hızlıca yeni notlar ekleyin, düzenleyin ve görüntüleyin.</p>
-                    
+                    <h4>@Localizer["NotesTitle"]</h4>
+                    <p>@Localizer["NotesDescription"]</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-danger text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <div class="rounded-circle bg-danger text-white d-inline-flex align-items-center justify-content-center mb-3"
+                        style="width: 60px; height: 60px;">
                         <i class="bi bi-gear fs-3"></i>
                     </div>
-                    <h4>Basit Arayüz</h4>
-                    <p>Kullanımı kolay, temiz ve modern bir arayüz ile hızlıca notlarınızı yönetin.</p>
-                    
+                    <h4>@Localizer["SimpleUI"]</h4>
+                    <p>@Localizer["SimpleUIDescription"]</p>
                 </div>
             </div>
         </div>
