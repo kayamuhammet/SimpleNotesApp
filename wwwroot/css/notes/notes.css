@@ -140,3 +140,34 @@
     padding: 1em;
     border-radius: 4px;
 }
+
+/* Search Notes */
+
+#searchNotes {
+    border-radius: 20px;
+    border: 1px solid #a8a8a8;
+    padding-left: 15px;
+    transition: all 0.3s ease;
+}
+
+#searchNotes:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    border-color: #86b7fe;
+}
+
+
+/* Note List Pagination */
+.note-list .pagination-nav {
+    border-top: 1px solid #dee2e6;
+    margin-top: auto;
+}
+
+.note-list button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#pageInfo {
+    min-width: 80px;
+    text-align: center;
+}

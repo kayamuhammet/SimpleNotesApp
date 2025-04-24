@@ -78,4 +78,93 @@ document.addEventListener('DOMContentLoaded', function() {
         var toggleButton = document.getElementById('toggleSidebars');
         toggleButton.click();
     }
+
+    const searchNotes = document.getElementById('searchNotes');
+    const itemsPerPage = 6;
+    let currentPage = 1;
+    let allNoteItems = Array.from(document.querySelectorAll('.note-list .list-group-item'));
+    let filteredNoteItems = allNoteItems;
+    
+    const prevButton = document.getElementById('prevPage');
+    const nextButton = document.getElementById('nextPage');
+    const pageInfo = document.getElementById('pageInfo');
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredNoteItems.length / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Hide all notes
+        allNoteItems.forEach(item => item.style.display = 'none');
+
+        // Show only filtered notes and notes on the current page
+        filteredNoteItems.slice(startIndex, endIndex).forEach(item => {
+            item.style.display = '';
+        });
+
+        // Update page information
+        pageInfo.textContent = totalPages > 0 
+            ? `Sayfa ${currentPage}/${totalPages}` 
+            : 'Sayfa 0/0';
+
+        // Update button states
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    // Search function
+    function handleSearch(searchText) {
+        searchText = searchText.toLowerCase();
+        
+        if (searchText === '') {
+            filteredNoteItems = allNoteItems;
+        } else {
+            filteredNoteItems = allNoteItems.filter(item => {
+                const title = item.querySelector('strong').textContent.toLowerCase();
+                const preview = item.querySelector('.note-preview').textContent.toLowerCase();
+                return title.includes(searchText) || preview.includes(searchText);
+            });
+        }
+
+        // Show/hide search results
+        const noResults = document.getElementById('noResults');
+        noResults.style.display = filteredNoteItems.length === 0 && searchText !== '' ? 'block' : 'none';
+
+        // Reset and update pagination
+        currentPage = 1;
+        updatePagination();
+    }
+
+    if (searchNotes) {
+        let searchTimeout = null;
+        searchNotes.addEventListener('input', function(e) {
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            searchTimeout = setTimeout(() => {
+                handleSearch(e.target.value);
+            }, 300);
+        });
+    }
+
+    // Event listener for paging buttons
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredNoteItems.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+        }
+    });
+
+    // Start paging for initial load
+    updatePagination();
+
+
 });
