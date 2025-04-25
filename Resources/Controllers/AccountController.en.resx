@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterButtonText" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="AccountCreateHeader" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="FirstNamePlaceholder" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastNamePlaceholder" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ConfirmPasswordPlaceholder" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>You don't have an account?</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="HaveAnAccount" xml:space="preserve">
+    <value>Do you already have an account?</value>
+  </data>
+</root>

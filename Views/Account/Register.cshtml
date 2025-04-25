@@ -1,3 +1,4 @@
+@inject IStringLocalizer<AccountController> Localizer
 @model SimpleNotesApp.ViewModels.RegisterViewModel
 @{
     Layout = "_AuthLayout";
@@ -12,26 +13,42 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
                 <div class="card card-register shadow-lg border-0 rounded-lg">
-                    <div class="card-header text-white">
-                        <h3 class="text-center font-weight-light my-2">Yeni Hesap Oluştur</h3>
+                    <div class="card-header text-white d-flex justify-content-between align-items-center">
+                        <h3 class="text-center font-weight-light my-2 flex-grow-1">@Localizer["AccountCreateHeader"]</h3>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-globe fs-5"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark">
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('tr')">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2560px-Flag_of_Turkey.svg.png" alt="TR Flag" width="20" class="me-2"> Turkish
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('en')">
+                                        <img src="https://flagpedia.net/data/flags/h80/gb.png" alt="EN Flag" width="20" class="me-2"> English
+                                    </a>
+                                </li>        
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body p-4">
                         <form asp-controller="Account" asp-action="Register" method="post">
                             <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
-                            <div asp-validation-summary="All" class="text-danger mb-3"></div>
                             
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3 mb-md-0">
                                         <input asp-for="FirstName" class="form-control" placeholder="Adınız" />
-                                        <label asp-for="FirstName"></label>
+                                        <label asp-for="FirstName">@Localizer["FirstNamePlaceholder"]</label>
                                         <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="LastName" class="form-control" placeholder="Soyadınız" />
-                                        <label asp-for="LastName"></label>
+                                        <label asp-for="LastName">@Localizer["LastNamePlaceholder"]</label>
                                         <span asp-validation-for="LastName" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -39,30 +56,30 @@
 
                             <div class="form-floating mb-3">
                                 <input asp-for="Email" class="form-control" placeholder="name@example.com" />
-                                <label asp-for="Email"></label>
+                                <label asp-for="Email">@Localizer["EmailPlaceholder"]</label>
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
 
                             <div class="form-floating mb-3">
                                 <input asp-for="Password" class="form-control" placeholder="Şifre" />
-                                <label asp-for="Password"></label>
+                                <label asp-for="Password">@Localizer["PasswordPlaceholder"]</label>
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
 
                             <div class="form-floating mb-4">
                                 <input asp-for="ConfirmPassword" class="form-control" placeholder="Şifre Tekrar" />
-                                <label asp-for="ConfirmPassword"></label>
+                                <label asp-for="ConfirmPassword">@Localizer["ConfirmPasswordPlaceholder"]</label>
                                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
 
                             <div class="register-button">
-                                <button type="submit" class="btn btn-success btn-lg">Hesap Oluştur</button>
+                                <button type="submit" class="btn btn-success btn-lg">@Localizer["RegisterButtonText"]</button>
                             </div>
                         </form>
                     </div>
                     <div class="card-footer text-center py-3">
                         <div class="small">
-                            Zaten hesabınız var mı? <a asp-action="Login" class="text-success text-decoration-none">Giriş Yap</a>
+                            @Localizer["HaveAnAccount"] <a asp-action="Login" class="text-success text-decoration-none">@Localizer["HomePageTitle"]</a>
                         </div>
                     </div>
                 </div>

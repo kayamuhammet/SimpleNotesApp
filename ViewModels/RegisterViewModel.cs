@@ -4,28 +4,28 @@ namespace SimpleNotesApp.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Ad gereklidir")]
-        [Display(Name = "Ad")]
+        [Required(ErrorMessage = "First name is required")]
+        [Display(Name = "First Name")]
         public string? FirstName { get; set; }
 
-        [Required(ErrorMessage = "Soyad gereklidir")]
-        [Display(Name = "Soyad")]
+        [Required(ErrorMessage = "Last name is required")]
+        [Display(Name = "Last Name")]
         public string? LastName { get; set; }
 
-        [Required(ErrorMessage = "E-posta adresi gereklidir")]
-        [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz")]
-        [Display(Name = "E-posta")]
+        [Required(ErrorMessage = "Email address is required")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Display(Name = "Email")]
         public string? Email { get; set; }
 
-        [Required(ErrorMessage = "Şifre gereklidir")]
-        [StringLength(100, ErrorMessage = "{0} en az {2} ve en fazla {1} karakter uzunluğunda olmalıdır.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(100, ErrorMessage = "{0} must be between {2} and {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Şifre")]
+        [Display(Name = "Password")]
         public string? Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Şifre Tekrar")]
-        [Compare("Password", ErrorMessage = "Şifreler eşleşmiyor.")]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string? ConfirmPassword { get; set; }
     }
 }

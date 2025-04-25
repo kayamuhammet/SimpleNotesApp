@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Giriş Yap</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Kayıt Ol</value>
+  </data>
+  <data name="RegisterButtonText" xml:space="preserve">
+    <value>Hesap Oluştur</value>
+  </data>
+  <data name="AccountCreateHeader" xml:space="preserve">
+    <value>Yeni Hesap Oluştur</value>
+  </data>
+  <data name="FirstNamePlaceholder" xml:space="preserve">
+    <value>Adınız</value>
+  </data>
+  <data name="LastNamePlaceholder" xml:space="preserve">
+    <value>Soyadınız</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>E-posta</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Şifre</value>
+  </data>
+  <data name="ConfirmPasswordPlaceholder" xml:space="preserve">
+    <value>Şifre Tekrar</value>
+  </data>
+  <data name="DontHaveAnAccount" xml:space="preserve">
+    <value>Hesabınız yok mu?</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Beni Hatırla</value>
+  </data>
+  <data name="HaveAnAccount" xml:space="preserve">
+    <value>Zaten hesabınız var mı?</value>
+  </data>
+</root>
