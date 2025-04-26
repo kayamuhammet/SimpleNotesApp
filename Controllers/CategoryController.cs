@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Microsoft.Extensions.Localization;
 
 namespace SimpleNotesApp.Controllers
 {
@@ -12,9 +13,11 @@ namespace SimpleNotesApp.Controllers
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IStringLocalizer<CategoryController> _localizer;
 
-        public CategoryController(AppDbContext context)
+        public CategoryController(AppDbContext context, IStringLocalizer<CategoryController> localizer)
         {
+            _localizer =localizer;
             _context = context;
         }
 
@@ -90,7 +93,7 @@ namespace SimpleNotesApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu.");
+                    ModelState.AddModelError("", "An error has occurred during the update.");
                 }
             }
             return View(category);
@@ -161,13 +164,13 @@ namespace SimpleNotesApp.Controllers
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
 
-                TempData["Success"] = "Kategori başarıyla silindi ve notlar 'Kategorisiz' kategorisine taşındı.";
+                TempData["Success"] = _localizer["DeleteCategoryMessage"].Value;
                 return RedirectToAction(nameof(Index));
 
             }
             catch(Exception ex)
             {
-                TempData["Error"] = "Kategori silinirken bir hata oluştu: " + ex.Message;
+                TempData["Error"] = _localizer["DeleteCategoryErrorMessage"] + ex.Message;
                 return RedirectToAction(nameof(Index));
             }
 

@@ -1,7 +1,7 @@
 @model SimpleNotesApp.Models.Category
-
+@inject IStringLocalizer<CategoryController> Localizer
 @{
-    ViewData["Title"] = "Kategori Sil";
+    ViewData["Title"] = Localizer["CategoryDelete"];
 }
 
 <div class="container py-5">
@@ -9,27 +9,26 @@
         <div class="col-md-6">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <h2 class="text-danger mb-4">Kategori Sil</h2>
+                    <h2 class="text-danger mb-4">@Localizer["CategoryDelete"]</h2>
                     
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <strong>Uyarı:</strong> Bu kategoriyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                        <strong>@Localizer["CategoryAlert"]</strong> @Localizer["CateogoryDeleteAlert"]
                     </div>
                     
                     @if (ViewBag.RelatedNotesCount > 0)
                     {
                         <div class="alert alert-info mt-3">
                             <i class="bi bi-info-circle-fill me-2"></i>
-                            Bu kategoriye ait <strong>@ViewBag.RelatedNotesCount</strong> not bulunmaktadır. 
-                            Kategori silindiğinde bu notlar kategorisiz olarak kalacaktır.
-                        </div>
+                            @Html.Raw(Localizer["CategoryNotesMessage", ViewBag.RelatedNotesCount])
+                        </div>                        
                     }
                     
                     <div class="card bg-light mt-4">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">Kategori Bilgileri</h5>
+                            <h5 class="card-title mb-3">@Localizer["CategoryInformation"]</h5>
                             <dl class="row mb-0">
-                                <dt class="col-sm-4">Kategori Adı:</dt>
+                                <dt class="col-sm-4">@Localizer["CategoryName"]:</dt>
                                 <dd class="col-sm-8 fw-bold">@Model.Name</dd>
                             </dl>
                         </div>
@@ -40,10 +39,10 @@
                         
                         <div class="d-flex justify-content-between">
                             <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Geri Dön
+                                <i class="bi bi-arrow-left"></i> @Localizer["CategoryGoBack"]
                             </a>
                             <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Kategoriyi Sil
+                                <i class="bi bi-trash"></i> @Localizer["DeleteCategory"]
                             </button>
                         </div>
                     </form>

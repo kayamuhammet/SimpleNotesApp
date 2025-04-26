@@ -1,14 +1,15 @@
 @model IEnumerable<SimpleNotesApp.Models.Category>
-
+@inject IStringLocalizer<CategoryController> Localizer
+    
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2 class="mb-0 text-primary">Kategoriler</h2>
+                        <h2 class="mb-0 text-primary">@Localizer["Categories"]</h2>
                         <a class="btn btn-success" asp-action="Create">
-                            <i class="bi bi-plus-lg"></i> Yeni Kategori
+                            <i class="bi bi-plus-lg"></i> @Localizer["NewCategory"]
                         </a>
                     </div>
                     
@@ -31,7 +32,7 @@
                     @if (!Model.Any())
                     {
                         <div class="alert alert-info text-center">
-                            Henüz hiç kategori bulunmuyor. Yeni kategori ekleyerek başlayabilirsiniz.
+                            @Localizer["NoCategories"]
                         </div>
                     }
                     else 
@@ -43,10 +44,10 @@
                                     <span class="fw-medium">@category.Name</span>
                                     <div class="btn-group">
                                         <a asp-action="Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary me-1">
-                                            <i class="bi bi-pencil-square"></i> Düzenle
+                                            <i class="bi bi-pencil-square"></i> @Localizer["EditCategory"]
                                         </a>
                                         <a asp-action="Delete" asp-route-id="@category.Id" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i> Sil
+                                            <i class="bi bi-trash"></i> @Localizer["DeleteCategory"]
                                         </a>
                                     </div>
                                 </div>

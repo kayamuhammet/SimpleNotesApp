@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="NoCategories" xml:space="preserve">
+    <value>Henüz hiç kategori bulunmuyor. Yeni kategori ekleyerek başlayabilirsiniz.</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>Yeni Kategori</value>
+  </data>
+  <data name="EditCategory" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+   <data name="DeleteCategory" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <!-- Edit -->
+  <data name="CategoryPageTitle" xml:space="preserve">
+    <value>Kategori Düzenle</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Kategori Adı</value>
+  </data>
+  <data name="CategoryGoBack" xml:space="preserve">
+    <value>Geri Dön</value>
+  </data>
+  <data name="CategorySave" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+
+  <!-- Delete -->
+
+   <data name="CategoryDelete" xml:space="preserve">
+    <value>Kategori Sil</value>
+  </data>
+  <data name="CateogoryDeleteAlert" xml:space="preserve">
+    <value>Bu kategoriyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="CategoryAlert" xml:space="preserve">
+    <value>Uyarı:</value>
+  </data>
+  <data name="CategoryNotesMessage" xml:space="preserve">
+    <value>Bu kategoriye ait <strong>{0}</strong> not bulunmaktadır. Kategori silindiğinde bu notlar kategorisiz olarak kalacaktır.</value>
+  </data>
+   <data name="CategoryInformation" xml:space="preserve">
+    <value>Kategori Bilgileri</value>
+  </data>
+   
+
+
+  <data name="EditCategoryMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DeleteCategoryMessage" xml:space="preserve">
+    <value>Kategori başarıyla silindi ve notlar 'Kategorisiz' kategorisine taşındı.</value>
+  </data>
+  <data name="EditCategoryErrorMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DeleteCategoryErrorMessage" xml:space="preserve">
+    <value>Kategori silinirken bir hata oluştu: </value>
+  </data>
+</root>

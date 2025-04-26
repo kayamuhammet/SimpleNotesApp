@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -89,6 +90,10 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SetDefaultCulture("tr")
            .AddSupportedCultures(supportedCultures)
            .AddSupportedUICultures(supportedCultures);
+    options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider()
+    {
+        CookieName = "CULTURE"
+    });
 });
 
 

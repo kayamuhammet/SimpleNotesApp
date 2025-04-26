@@ -47,9 +47,13 @@ function showLogoutNotification(event) {
 }
 
 function changeCulture(culture) {
-    let currentUrl = window.location.href;
-    if (currentUrl.includes('?')) {
-        currentUrl = currentUrl.split('?')[0];
-    }
-    window.location.href = currentUrl + '?culture=' + culture;
+    const cookieName = 'CULTURE';
+    const cookieValue = culture === 'tr' ? 'tr-TR' : 'en-US';
+    
+    
+    document.cookie = `${cookieName}=${cookieValue};path=/;max-age=${365 * 24 * 60 * 60}`;
+    document.cookie = `.AspNetCore.Culture=c=${cookieValue}|uic=${cookieValue};path=/;max-age=${365 * 24 * 60 * 60}`;
+    
+    
+    window.location.reload();
 }
