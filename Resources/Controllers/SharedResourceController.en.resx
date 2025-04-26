@@ -27,5 +27,22 @@
 <data name="Login" xml:space="preserve">
     <value>Login</value>
 </data>
+
+<!-- Error -->
+<data name="404" xml:space="preserve">
+    <value>404</value>
+</data>
+<data name="PageNotFound" xml:space="preserve">
+    <value>Page Not Found</value>
+</data>
+<data name="NotExist" xml:space="preserve">
+    <value>The page you are looking for may not exist or may have been moved.</value>
+</data>
+<data name="ReturnToHomePage" xml:space="preserve">
+    <value>Return to Home Page</value>
+</data>
+
+
+
 </root>
 

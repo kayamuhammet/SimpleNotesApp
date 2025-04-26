@@ -113,6 +113,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
 // Localization middleware
 var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
 app.UseRequestLocalization(locOptions.Value);
@@ -127,6 +130,19 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{lang=tr-tr}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{lang=tr-tr}/{controller=Home}/{action=Index}/{id?}",
+    constraints: new { lang = "tr-tr|en-us" });
+
+app.MapControllerRoute(
+    name: "catch-all-with-lang",
+    pattern: "{lang}/{*path}",
+    constraints: new { lang = "tr-tr|en-us" },
+    defaults: new { controller = "Error", action = "HandleError", statusCode = 404 });
+
+app.MapControllerRoute(
+    name: "catch-all",
+    pattern: "{*path}",
+    defaults: new { controller = "Error", action = "HandleError", statusCode = 404 });
+
 
 app.Run();

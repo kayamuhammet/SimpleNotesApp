@@ -27,6 +27,21 @@
 <data name="Login" xml:space="preserve">
     <value>Giriş Yap</value>
 </data>
+
+<!-- Error -->
+<data name="404" xml:space="preserve">
+    <value>404</value>
+</data>
+<data name="PageNotFound" xml:space="preserve">
+    <value>Sayfa Bulunamadı</value>
+</data>
+<data name="NotExist" xml:space="preserve">
+    <value>Aradığınız sayfa mevcut değil veya taşınmış olabilir.</value>
+</data>
+<data name="ReturnToHomePage" xml:space="preserve">
+    <value>Ana Sayfaya Dön</value>
+</data>
+
 </root>
 
 

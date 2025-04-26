@@ -1,0 +1,16 @@
+@inject IStringLocalizer<SharedResourceController> Localizer
+@{
+    ViewData["Title"] = Localizer["404"];
+}
+
+<div class="container text-center py-5">
+    <div class="error-icon mb-3">
+        <i class="bi bi-emoji-frown-fill display-1 floating-icon"></i>
+    </div>
+    <h1 class="display-1 fw-bold">@Localizer["404"]</h1>
+    <h2 class="mb-4">@Localizer["PageNotFound"]</h2>
+    <p class="lead mb-5 fw-normal">@Localizer["NotExist"]</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary rounded-pill">
+        <i class="bi bi-house-door me-2"></i>@Localizer["ReturnToHomePage"]
+    </a>
+</div>
