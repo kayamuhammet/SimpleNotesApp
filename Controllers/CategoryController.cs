@@ -17,14 +17,14 @@ namespace SimpleNotesApp.Controllers
 
         public CategoryController(AppDbContext context, IStringLocalizer<CategoryController> localizer)
         {
-            _localizer =localizer;
+            _localizer = localizer;
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+
             return View(await _context.Categories.Where(c => c.UserId == userId).ToListAsync());
         }
 
@@ -81,8 +81,8 @@ namespace SimpleNotesApp.Controllers
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     var existingCategory = await _context.Categories
                         .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
-                    
-                    if(existingCategory == null)
+
+                    if (existingCategory == null)
                     {
                         return NotFound();
                     }
@@ -131,13 +131,17 @@ namespace SimpleNotesApp.Controllers
 
             try
             {
-                var unassignedCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Name == "Kategorisiz" && c.UserId == userId);
+                var uncategorizedName = _localizer["Uncategorized"].Value;
 
-                if(unassignedCategory == null)
+                var unassignedCategory = await _context.Categories
+                    .FirstOrDefaultAsync(c => c.Name == uncategorizedName && c.UserId == userId);
+
+                if (unassignedCategory == null)
                 {
                     unassignedCategory = new Category
                     {
-                        Name = "Kategorisiz",UserId = userId
+                        Name = uncategorizedName,
+                        UserId = userId
                     };
                     _context.Categories.Add(unassignedCategory);
                     await _context.SaveChangesAsync();
@@ -151,10 +155,10 @@ namespace SimpleNotesApp.Controllers
                 {
                     return NotFound();
                 }
-                
+
                 if (category.Notes != null)
                 {
-                    foreach(var note in category.Notes)
+                    foreach (var note in category.Notes)
                     {
                         note.CategoryId = unassignedCategory.Id;
                         note.Category = unassignedCategory;
@@ -166,14 +170,12 @@ namespace SimpleNotesApp.Controllers
 
                 TempData["Success"] = _localizer["DeleteCategoryMessage"].Value;
                 return RedirectToAction(nameof(Index));
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                TempData["Error"] = _localizer["DeleteCategoryErrorMessage"] + ex.Message;
+                TempData["Error"] = _localizer["DeleteCategoryErrorMessage"].Value + ex.Message;
                 return RedirectToAction(nameof(Index));
             }
-
         }
 
         private bool CategoryExists(int id)

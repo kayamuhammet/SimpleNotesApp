@@ -1,7 +1,7 @@
 @model SimpleNotesApp.Models.Note
-
+@inject IStringLocalizer<NotesController> Localizer
 @{
-    ViewData["Title"] = "Notu Sil";
+    ViewData["Title"] = Localizer["DeleteNote"];
 }
 
 @section Styles {
@@ -17,22 +17,22 @@
                     
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <strong>Uyarı:</strong> Bu notu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
+                        <strong>@Localizer["Alert"]</strong> @Localizer["DeleteNoteMessage"]
                     </div>
                     
                     <div class="card bg-light mt-4">
                         <div class="card-body">
-                            <h5 class="card-title mb-3">Not Bilgileri</h5>
+                            <h5 class="card-title mb-3">@Localizer["NoteInformation"]</h5>
                             <dl class="row mb-0">
-                                <dt class="col-sm-3">Başlık:</dt>
+                                <dt class="col-sm-3">@Localizer["Title"]</dt>
                                 <dd class="col-sm-9 fw-bold">@Model.Title</dd>
                                 
-                                <dt class="col-sm-3">Kategori:</dt>
+                                <dt class="col-sm-3">@Localizer["Category"]</dt>
                                 <dd class="col-sm-9">
                                     @(Model.Category != null ? Model.Category.Name : "Kategorisiz")
                                 </dd>
                                 
-                                <dt class="col-sm-3">Oluşturulma:</dt>
+                                <dt class="col-sm-3">@Localizer["Dateofcreation"]</dt>
                                 <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
                             </dl>
                         </div>
@@ -40,7 +40,7 @@
                     
                     <div class="card mt-3">
                         <div class="card-header">
-                            <h5 class="mb-0">Not İçeriği</h5>
+                            <h5 class="mb-0">@Localizer["NoteContent"]</h5>
                         </div>
                         <div class="card-body bg-light">
                             <div class="card-text">@Html.Raw(Model.Context)</div>
@@ -51,10 +51,10 @@
                         <input type="hidden" asp-for="Id" />
                         <div class="d-flex justify-content-between">
                             <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Geri Dön
+                                <i class="bi bi-arrow-left"></i> @Localizer["GoBack"]
                             </a>
                             <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-trash"></i> Notu Sil
+                                <i class="bi bi-trash"></i> @Localizer["DeleteNote"]
                             </button>
                         </div>
                     </form>

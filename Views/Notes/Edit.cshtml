@@ -1,7 +1,7 @@
 @model SimpleNotesApp.Models.Note
-
+@inject IStringLocalizer<NotesController> Localizer
 @{
-    ViewData["Title"] = "Notu Düzenle";
+    ViewData["Title"] = Localizer["EditNote"];
 }
 
 @section Styles {
@@ -24,31 +24,31 @@
                         <input type="hidden" asp-for="Id" />
                         
                         <div class="mb-3">
-                            <label asp-for="Title" class="form-label">Başlık</label>
+                            <label asp-for="Title" class="form-label">@Localizer["Title"]</label>
                             <input asp-for="Title" class="form-control" />
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         
                         <div class="mb-3">
-                            <label asp-for="Context" class="form-label">İçerik</label>
+                            <label asp-for="Context" class="form-label">@Localizer["Content"]</label>
                             <div id="editor" style="height: 800px;"></div>
                             <textarea asp-for="Context" style="display: none" id="hiddenContext"></textarea>
                             <span asp-validation-for="Context" class="text-danger"></span>
                         </div>
                         
                         <div class="mb-4">
-                            <label for="CategoryId" class="form-label">Kategori</label>
+                            <label for="CategoryId" class="form-label">@Localizer["Category"]</label>
                             <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
-                                <option value="">-- Kategori Seçiniz --</option>
+                                <option value="">-- @Localizer["SelectNote"] --</option>
                             </select>
                         </div>
                         
                         <div class="d-flex justify-content-between mt-4">
                             <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left"></i> Geri Dön
+                                <i class="bi bi-arrow-left"></i> @Localizer["GoBack"]
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Kaydet
+                                <i class="bi bi-save"></i> @Localizer["Save"]
                             </button>
                         </div>
                     </form>

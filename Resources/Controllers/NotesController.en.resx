@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- Delete -->
+ <data name="DeleteNoteMessage" xml:space="preserve">
+    <value>Are you sure you want to delete this note? This action cannot be undone.</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert: </value>
+  </data>
+  <data name="NoteInformation" xml:space="preserve">
+    <value>Note Information</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category:</value>
+  </data>
+  <data name="Dateofcreation" xml:space="preserve">
+    <value>Creation:</value>
+  </data>
+  <data name="NoteContent" xml:space="preserve">
+    <value>Note Content</value>
+  </data>
+   <data name="GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="DeleteNote" xml:space="preserve">
+    <value>Delete Note</value>
+  </data>
+  <data name="EditNote" xml:space="preserve">
+    <value>Edit Note</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+
+  <!-- Index -->
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="NoResultFound" xml:space="preserve">
+    <value>No Result Found:</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SelectNote" xml:space="preserve">
+    <value>🖱️ Choose a note...</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>New Note</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>New Category</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>New Note</value>
+  </data>
+  <data name="DetailNote" xml:space="preserve">
+    <value>Note Detail</value>
+  </data>
+  <data name="SearchNote" xml:space="preserve">
+    <value>Search note...</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Category Name</value>
+  </data>
+  <data name="NoteTitle" xml:space="preserve">
+    <value>Note Title</value>
+  </data>
+
+
+</root>

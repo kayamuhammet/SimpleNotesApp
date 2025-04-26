@@ -24,7 +24,7 @@ var quill = new Quill('#noteEditor', {
             }
         }
     },
-    placeholder: 'Not içeriğini buraya yazın...'
+    placeholder: 'Write the note content here...'
 });
 
 // Transfer Quill content to textarea before the form is submitted
@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update page information
         pageInfo.textContent = totalPages > 0 
-            ? `Sayfa ${currentPage}/${totalPages}` 
-            : 'Sayfa 0/0';
+            ? `${currentPage}/${totalPages}` 
+            : '0/0';
 
         // Update button states
         prevButton.disabled = currentPage === 1;

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- Delete -->
+  <data name="DeleteNoteMessage" xml:space="preserve">
+    <value>Bu notu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Uyarı:</value>
+  </data>
+  <data name="NoteInformation" xml:space="preserve">
+    <value>Not Bilgileri</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Başlık:</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategori:</value>
+  </data>
+  <data name="Dateofcreation" xml:space="preserve">
+    <value>Oluşturulma:</value>
+  </data>
+  <data name="NoteContent" xml:space="preserve">
+    <value>Not İçeriği</value>
+  </data>
+   <data name="GoBack" xml:space="preserve">
+    <value>Geri Dön</value>
+  </data>
+  <data name="DeleteNote" xml:space="preserve">
+    <value>Notu Sil</value>
+  </data>
+
+  <!-- Edit Note -->
+
+  <data name="EditNote" xml:space="preserve">
+    <value>Notu Düzenle</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>İçerik</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Kategori Seçiniz</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+
+  <!-- Index -->
+
+   <data name="Notes" xml:space="preserve">
+    <value>Notlar</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+  </data>
+  <data name="NoResultFound" xml:space="preserve">
+    <value>Sonuç bulunamadı:</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Yazdır</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Düzenle</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Sil</value>
+  </data>
+  <data name="SelectNote" xml:space="preserve">
+    <value>🖱️ Bir not seçin...</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>Yeni Not</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Ekle</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>Yeni Kategori</value>
+  </data>
+  <data name="NewNote" xml:space="preserve">
+    <value>Yeni Not</value>
+  </data>
+  <data name="DetailNote" xml:space="preserve">
+    <value>Not Detayı</value>
+  </data>
+  <data name="SearchNote" xml:space="preserve">
+    <value>Not ara...</value>
+  </data>
+  <data name="CategoryName" xml:space="preserve">
+    <value>Kategori Adı</value>
+  </data>
+  <data name="NoteTitle" xml:space="preserve">
+    <value>Not Başlığı</value>
+  </data>
+
+
+
+  
+
+  
+
+</root>

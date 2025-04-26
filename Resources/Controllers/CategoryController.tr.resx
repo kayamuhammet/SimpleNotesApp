@@ -61,4 +61,8 @@
   <data name="DeleteCategoryErrorMessage" xml:space="preserve">
     <value>Kategori silinirken bir hata oluştu: </value>
   </data>
+
+  <data name="Uncategorized" xml:space="preserve">
+    <value>Kategorisiz</value>
+  </data>
 </root>
