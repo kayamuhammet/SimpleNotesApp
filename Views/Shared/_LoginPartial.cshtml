@@ -5,18 +5,17 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
-
+@inject IStringLocalizer<SharedResourceController> Localizer
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
     var user = await UserManager.GetUserAsync(User);
     <li class="nav-item">
-        <span class="nav-link text-dark">Merhaba @(user?.FirstName ?? User.Identity.Name)!</span>
+        <span class="nav-link text-dark">@Localizer["Hi"] @(user?.FirstName ?? User.Identity.Name)!</span>
     </li>
     <li class="nav-item">
         <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" onsubmit="showLogoutNotification(event)">
-            <button type="submit" class="btn btn-link nav-link text-dark">Çıkış Yap</button>
+            <button type="submit" class="btn btn-link nav-link text-dark">@Localizer["Logout"]</button>
         </form>
     </li>
     <li class="nav-item">
@@ -28,10 +27,10 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Kayıt Ol</a>
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Giriş Yap</a>
+        <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
     </li>
     <li class="nav-item">
         <div class="spinner-grow spinner-grow-sm m-3 text-danger" role="status">
@@ -46,12 +45,12 @@ else
     </a>
     <ul class="dropdown-menu dropdown-menu-end bg-dark">
         <li>
-            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('tr')">
+            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('tr-tr')">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Flag_of_Turkey.svg/2560px-Flag_of_Turkey.svg.png" alt="TR Flag" width="20" class="me-2"> Turkish
             </a>
         </li>
         <li>
-            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('en')">
+            <a class="dropdown-item text-light text-center" href="#" onclick="changeCulture('en-us')">
                 <img src="https://flagpedia.net/data/flags/h80/gb.png" alt="EN Flag" width="20" class="me-2">
                 English
             </a>

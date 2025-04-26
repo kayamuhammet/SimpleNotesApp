@@ -23,6 +23,7 @@
 }
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
+@inject IStringLocalizer<SharedResourceController> Localizer
 <body class="@bodyClass">
     <div class="spinner" id="loadingSpinner">
         <div class="spinner-border" role="status">
@@ -30,7 +31,7 @@
         </div>
     </div>
     <div id="notification" style="display: none;" class="alert alert-success" role="alert" >
-        <strong>Başarılı!</strong> Çıkış yapıldı. 5 saniye sonra anasayfaya yönlendirileceksiniz.
+        <strong>@Localizer["Success"]</strong> @Localizer["LogoutMessage"]
         <span id="countdown"></span>
     </div>
     <header class="custom-header">
@@ -48,19 +49,19 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link @(controllerName == "home" ? "active" : "")" asp-controller="Home" asp-action="Index">
-                                <i class="bi bi-house-door me-1"></i> Ana Sayfa
+                                <i class="bi bi-house-door me-1"></i> @Localizer["Home"]
                             </a>
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
                                 <a class="nav-link @(controllerName == "notes" ? "active" : "")" asp-controller="Notes" asp-action="Index">
-                                    <i class="bi bi-sticky me-1"></i> Notlar
+                                    <i class="bi bi-sticky me-1"></i> @Localizer["Notes"]
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link @(controllerName == "category" ? "active" : "")" asp-controller="Category" asp-action="Index">
-                                    <i class="bi bi-folder me-1"></i> Kategoriler
+                                    <i class="bi bi-folder me-1"></i> @Localizer["Categories"]
                                 </a>
                             </li>
                         }

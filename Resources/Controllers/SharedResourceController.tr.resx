@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<data name="Home" xml:space="preserve">
+    <value>Ana Sayfa</value>
+</data>
+<data name="Notes" xml:space="preserve">
+    <value>Notlar</value>
+</data>
+<data name="Categories" xml:space="preserve">
+    <value>Kategoriler</value>
+</data>
+<data name="Success" xml:space="preserve">
+    <value>Başarılı!</value>
+</data>
+<data name="LogoutMessage" xml:space="preserve">
+    <value>Çıkış yapıldı. 5 saniye sonra anasayfaya yönlendirileceksiniz.</value>
+</data>
+<data name="Hi" xml:space="preserve">
+    <value>Merhaba </value>
+</data>
+<data name="Logout" xml:space="preserve">
+    <value>Çıkış Yap</value>
+</data>
+<data name="Register" xml:space="preserve">
+    <value>Kayıt Ol</value>
+</data>
+<data name="Login" xml:space="preserve">
+    <value>Giriş Yap</value>
+</data>
+</root>
+
+

@@ -96,6 +96,12 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     });
 });
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
+
+
 
 var app = builder.Build();
 
@@ -121,6 +127,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{lang=tr-tr}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

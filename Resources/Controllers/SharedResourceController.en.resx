@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<data name="Home" xml:space="preserve">
+    <value>Home</value>
+</data>
+<data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+</data>
+<data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+</data>
+<data name="Success" xml:space="preserve">
+    <value>Success!</value>
+</data>
+<data name="LogoutMessage" xml:space="preserve">
+    <value>You are logged out. After 5 seconds you will be redirected to the homepage.</value>
+</data>
+<data name="Hi" xml:space="preserve">
+    <value>Hi </value>
+</data>
+<data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+</data>
+<data name="Register" xml:space="preserve">
+    <value>Register</value>
+</data>
+<data name="Login" xml:space="preserve">
+    <value>Login</value>
+</data>
+</root>
+

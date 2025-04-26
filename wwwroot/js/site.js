@@ -47,13 +47,12 @@ function showLogoutNotification(event) {
 }
 
 function changeCulture(culture) {
-    const cookieName = 'CULTURE';
-    const cookieValue = culture === 'tr' ? 'tr-TR' : 'en-US';
+    const currentPath = window.location.pathname.split('/').slice(2).join('/');
+    const newPath = `/${culture}/${currentPath}`;
     
     
-    document.cookie = `${cookieName}=${cookieValue};path=/;max-age=${365 * 24 * 60 * 60}`;
-    document.cookie = `.AspNetCore.Culture=c=${cookieValue}|uic=${cookieValue};path=/;max-age=${365 * 24 * 60 * 60}`;
+    document.cookie = `.AspNetCore.Culture=c=${culture}|uic=${culture};path=/;max-age=${365 * 24 * 60 * 60}`;
     
     
-    window.location.reload();
+    window.location.href = newPath;
 }
