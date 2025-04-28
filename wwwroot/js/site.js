@@ -56,3 +56,14 @@ function changeCulture(culture) {
    
     window.location.href = newPath || `/${culture}`;
 }
+
+/* Alert Close */
+document.addEventListener('DOMContentLoaded', function() {
+    const alertElement = document.getElementById('alertClose');
+    if (alertElement) {
+        setTimeout(() => {
+            const alert = bootstrap.Alert.getOrCreateInstance(alertElement);
+            alert.close();
+        }, 3000); 
+    }
+});

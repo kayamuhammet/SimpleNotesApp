@@ -91,6 +91,27 @@
   <data name="NoteTitle" xml:space="preserve">
     <value>Note Title</value>
   </data>
+  <data name="NoteFavoriteAdded" xml:space="preserve">
+    <value>Note added to favorites.</value>
+  </data>
+  <data name="NoteFavoriteRemoved" xml:space="preserve">
+    <value>Note removed to favorites</value>
+  </data>
+  <data name="NoteCreatedSuccess" xml:space="preserve">
+    <value>Note created successfully.</value>
+  </data>
+  <data name="NoteEditedSuccess" xml:space="preserve">
+    <value>Not edited successfully.</value>
+  </data>
+  <data name="NoteEditedError" xml:space="preserve">
+    <value>An error occurred while updating the note: </value>
+  </data>
+  <data name="NoteDeletedSuccess" xml:space="preserve">
+    <value>Note deleted successfully.</value>
+  </data>
+  <data name="NoteDeletedError" xml:space="preserve">
+    <value>An error occurred while deleting the note: </value>
+  </data>
 
 
 </root>

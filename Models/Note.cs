@@ -15,6 +15,8 @@ namespace SimpleNotesApp.Models
 
         public DateTime CreatedAt {get; set;} = DateTime.Now;
 
+        public bool IsFavorite {get; set;}
+
         // Category
         public int? CategoryId {get; set;}
         public Category? Category {get; set;}

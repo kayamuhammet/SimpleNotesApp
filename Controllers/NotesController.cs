@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using SimpleNotesApp.Data;
 using SimpleNotesApp.Models;
 
@@ -12,9 +13,11 @@ namespace SimpleNotesApp.Controllers
     public class NotesController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IStringLocalizer<NotesController> _localizer;
 
-        public NotesController(AppDbContext context)
+        public NotesController(AppDbContext context, IStringLocalizer<NotesController> localizer)
         {
+            _localizer = localizer;
             _context = context;
         }
 
@@ -68,7 +71,7 @@ namespace SimpleNotesApp.Controllers
                 note.CreatedAt = DateTime.Now;
                 _context.Add(note);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Not başarıyla oluşturuldu.";
+                TempData["Success"] = _localizer["NoteCreatedSuccess"].Value;
                 return RedirectToAction(nameof(Index));
             }
             PopulateCategories();
@@ -115,16 +118,16 @@ namespace SimpleNotesApp.Controllers
                     existingNote.CategoryId = note.CategoryId;
                     
                     await _context.SaveChangesAsync();
-                    TempData["Success"] = "Not başarıyla güncellendi.";
+                    TempData["Success"] = _localizer["NoteEditedSuccess"].Value;
                     return RedirectToAction(nameof(Index));
                 }
                 catch(DbUpdateConcurrencyException)
                 {
-                    ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu.");
+                    ModelState.AddModelError("", "An error occurred during the update.");
                 }
                 catch (Exception ex)
                 {
-                    TempData["Error"] = "Not güncellenirken bir hata oluştu: " + ex.Message;
+                    TempData["Error"] = _localizer["NoteEditedError"].Value + ex.Message;
                 }
             }
             PopulateCategories();
@@ -151,6 +154,28 @@ namespace SimpleNotesApp.Controllers
             return View(note);
         }
 
+        // Toggle Favorite
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleFavorite(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var note = await _context.Notes
+                .FirstOrDefaultAsync(n => n.Id == id && n.UserId == userId);
+
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            note.IsFavorite = !note.IsFavorite;
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = note.IsFavorite ? _localizer["NoteFavoriteAdded"].Value : _localizer["NoteFavoriteRemoved"].Value;
+
+            return RedirectToAction(nameof(Index), new { noteId = id });
+        }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -167,12 +192,12 @@ namespace SimpleNotesApp.Controllers
                 
                 _context.Notes.Remove(note);
                 await _context.SaveChangesAsync();
-                TempData["Success"] = "Not başarıyla silindi.";
+                TempData["Success"] = _localizer["NoteDeletedSuccess"].Value;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                TempData["Error"] = "Not silinirken bir hata oluştu: " + ex.Message;
+                TempData["Error"] = _localizer["NoteDeletedError"].Value + ex.Message;
                 return RedirectToAction(nameof(Index));
             }
         }

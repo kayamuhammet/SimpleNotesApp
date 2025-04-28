@@ -95,6 +95,27 @@
   <data name="NoteTitle" xml:space="preserve">
     <value>Not Başlığı</value>
   </data>
+  <data name="NoteFavoriteAdded" xml:space="preserve">
+    <value>Not favorilere eklendi.</value>
+  </data>
+  <data name="NoteFavoriteRemoved" xml:space="preserve">
+    <value>Not favorilerden çıkarıldı.</value>
+  </data>
+  <data name="NoteCreatedSuccess" xml:space="preserve">
+    <value>Not başarıyla oluşturuldu.</value>
+  </data>
+  <data name="NoteEditedSuccess" xml:space="preserve">
+    <value>Not başarıyla güncellendi.</value>
+  </data>
+  <data name="NoteEditedError" xml:space="preserve">
+    <value>Not güncellenirken bir hata oluştu: </value>
+  </data>
+  <data name="NoteDeletedSuccess" xml:space="preserve">
+    <value>Not başarıyla silindi. </value>
+  </data>
+  <data name="NoteDeletedError" xml:space="preserve">
+    <value>Not silinirken bir hata oluştu: </value>
+  </data>
 
 
 

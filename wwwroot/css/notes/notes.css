@@ -171,3 +171,13 @@
     min-width: 80px;
     text-align: center;
 }
+
+/* favorite */
+
+.favorite-btn .bi-star-fill {
+    color: #ffc107;
+}
+
+.favorite-btn:hover {
+    background-color: #fff3cd;
+}

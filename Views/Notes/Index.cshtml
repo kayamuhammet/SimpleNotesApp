@@ -19,7 +19,7 @@
         
         @if (TempData["Success"] != null)
         {
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert" id="alertClose">
                 <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -27,7 +27,7 @@
         
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert" id="alertClose">
                 <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -69,11 +69,15 @@
                     @Localizer["NoResultFound"]
                 </div>
                 <ul class="list-group list-group-flush">
-                    @foreach (var note in Model)
+                    @foreach (var note in Model.OrderByDescending(n => n.IsFavorite).ThenByDescending(n => n.CreatedAt))
                     {
                         <a asp-controller="Notes" asp-action="Index"
                            asp-route-categoryId="@note.CategoryId" asp-route-noteId="@note.Id"
                            class="list-group-item list-group-item-action">
+                            @if (note.IsFavorite)
+                            {
+                                <i class="bi bi-star-fill text-warning me-2"></i>
+                            }
                             <strong>@note.Title</strong>
                             <div class="note-preview">
                                 @{
@@ -124,6 +128,14 @@
                 @if (selectedNote != null)
                 {
                     <div class="flex-shrink-0">
+                        <form asp-action="ToggleFavorite" asp-route-id="@selectedNote.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" 
+                                    class="btn btn-outline-warning btn-sm favorite-btn" 
+                                    title="@(selectedNote.IsFavorite ? "Favorilerden Çıkar" : "Favorilere Ekle")">
+                                <i class="bi @(selectedNote.IsFavorite ? "bi-star-fill" : "bi-star")"></i>
+                            </button>
+                        </form>
                         <button onclick="printNote()" class="btn btn-outline-secondary btn-sm">
                             <i class="bi bi-printer"></i> @Localizer["Print"]
                         </button>
