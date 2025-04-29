@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SimpleNotesApp.Data;
 using SimpleNotesApp.Models;
+using SimpleNotesApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,9 +28,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => {
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 6;
+    
+    // Email confirmation settings
+    options.SignIn.RequireConfirmedEmail = true;
+    options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
+
+// Add email service
+builder.Services.AddTransient<IEmailService, EmailService>();
 
 // cookie-based authentication settings
 builder.Services.ConfigureApplicationCookie(options => {

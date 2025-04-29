@@ -36,4 +36,25 @@
   <data name="HaveAnAccount" xml:space="preserve">
     <value>Zaten hesabınız var mı?</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Geçersiz giriş denemesi.</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>E-posta adresiniz onaylanmamış. Lütfen e-postanızı kontrol edin.</value>
+  </data>
+  <data name="ConfirmEmailSubject" xml:space="preserve">
+    <value>E-posta Onayı</value>
+  </data>
+  <data name="ConfirmEmailMessage" xml:space="preserve">
+    <value>E-posta adresinizi onaylamak için lütfen aşağıdaki bağlantıya tıklayın: </value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Kayıt işlemi başarılı. Lütfen e-posta adresinizi onaylayın.</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>E-posta adresiniz başarıyla onaylandı. Şimdi giriş yapabilirsiniz.</value>
+  </data>
+  <data name="EmailConfirmationFailed" xml:space="preserve">
+    <value>E-posta onaylama işlemi başarısız oldu.</value>
+  </data>
 </root>

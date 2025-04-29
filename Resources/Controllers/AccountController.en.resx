@@ -36,4 +36,25 @@
   <data name="HaveAnAccount" xml:space="preserve">
     <value>Do you already have an account?</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Invalid login attempt.</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Your email is not confirmed. Please check your email.</value>
+  </data>
+  <data name="ConfirmEmailSubject" xml:space="preserve">
+    <value>Email Confirmation</value>
+  </data>
+  <data name="ConfirmEmailMessage" xml:space="preserve">
+    <value>Please confirm your email by clicking the following link: </value>
+  </data>
+  <data name="RegistrationSuccess" xml:space="preserve">
+    <value>Registration successful. Please confirm your email.</value>
+  </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Your email has been confirmed. You can now login.</value>
+  </data>
+  <data name="EmailConfirmationFailed" xml:space="preserve">
+    <value>Email confirmation failed.</value>
+  </data>
 </root>

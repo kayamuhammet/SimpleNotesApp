@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using SimpleNotesApp.Models;
 using SimpleNotesApp.ViewModels;
+using SimpleNotesApp.Services;
 using System.Security.Claims;
 
 namespace SimpleNotesApp.Controllers
@@ -14,13 +15,19 @@ namespace SimpleNotesApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailService _emailService;
+        private readonly IStringLocalizer<AccountController> _localizer;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IEmailService emailService,
+            IStringLocalizer<AccountController> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
+            _localizer = localizer;
         }
 
         [HttpGet]
@@ -45,7 +52,13 @@ namespace SimpleNotesApp.Controllers
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"].Value);
+                    return View(model);
+                }
+
+                if (!await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    ModelState.AddModelError(string.Empty, _localizer["EmailNotConfirmed"].Value);
                     return View(model);
                 }
 
@@ -53,12 +66,11 @@ namespace SimpleNotesApp.Controllers
                 
                 if (result.Succeeded)
                 {
-                    
                     return RedirectToLocal(returnUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, _localizer["InvalidLoginAttempt"].Value);
                     return View(model);
                 }
             }
@@ -97,8 +109,17 @@ namespace SimpleNotesApp.Controllers
                 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account", 
+                        new { userId = user.Id, token = token }, Request.Scheme);
+
+                    await _emailService.SendEmailAsync(
+                        user.Email,
+                        _localizer["ConfirmEmailSubject"].Value,
+                        _localizer["ConfirmEmailMessage"].Value + $" <a href='{confirmationLink}'>link</a>");
+
+                    TempData["Success"] = _localizer["RegistrationSuccess"].Value;
+                    return RedirectToAction("Login");
                 }
                 
                 foreach (var error in result.Errors)
@@ -108,6 +129,33 @@ namespace SimpleNotesApp.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                TempData["Error"] = _localizer["EmailConfirmationFailed"].Value;
+                return RedirectToAction("Login");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                TempData["Error"] = _localizer["EmailConfirmationFailed"].Value;
+                return RedirectToAction("Login");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                TempData["Success"] = _localizer["EmailConfirmed"].Value;
+                return RedirectToAction("Login");
+            }
+
+            TempData["Error"] = _localizer["EmailConfirmationFailed"].Value;
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
