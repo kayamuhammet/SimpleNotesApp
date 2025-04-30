@@ -52,9 +52,42 @@
     <value>Kayıt işlemi başarılı. Lütfen e-posta adresinizi onaylayın.</value>
   </data>
   <data name="EmailConfirmed" xml:space="preserve">
-    <value>E-posta adresiniz başarıyla onaylandı. Şimdi giriş yapabilirsiniz.</value>
+    <value>E-posta adresiniz onaylandı. Şimdi giriş yapabilirsiniz.</value>
   </data>
   <data name="EmailConfirmationFailed" xml:space="preserve">
     <value>E-posta onaylama işlemi başarısız oldu.</value>
+  </data>
+  <data name="ForgotPasswordTitle" xml:space="preserve">
+    <value>Şifremi Unuttum</value>
+  </data>
+  <data name="ResetPasswordButton" xml:space="preserve">
+    <value>Şifre Sıfırla</value>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Giriş Sayfasına Dön</value>
+  </data>
+  <data name="ForgotPasswordConfirmationTitle" xml:space="preserve">
+    <value>E-posta Gönderildi</value>
+  </data>
+  <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>Şifre Sıfırlama E-postası Gönderildi</value>
+  </data>
+  <data name="ForgotPasswordConfirmationMessage" xml:space="preserve">
+    <value>Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin.</value>
+  </data>
+  <data name="ResetPasswordTitle" xml:space="preserve">
+    <value>Şifre Sıfırlama</value>
+  </data>
+  <data name="ResetPasswordSubject" xml:space="preserve">
+    <value>Şifre Sıfırlama</value>
+  </data>
+  <data name="ResetPasswordMessage" xml:space="preserve">
+    <value>Şifrenizi sıfırlamak için lütfen aşağıdaki bağlantıya tıklayın: </value>
+  </data>
+  <data name="ResetPasswordConfirmationTitle" xml:space="preserve">
+    <value>Şifre Sıfırlama Başarılı</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Şifreniz başarıyla sıfırlandı. Yeni şifrenizle giriş yapabilirsiniz.</value>
   </data>
 </root>

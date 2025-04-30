@@ -57,4 +57,37 @@
   <data name="EmailConfirmationFailed" xml:space="preserve">
     <value>Email confirmation failed.</value>
   </data>
+  <data name="ForgotPasswordTitle" xml:space="preserve">
+    <value>Forgot Password</value>
+  </data>
+  <data name="ResetPasswordButton" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="BackToLogin" xml:space="preserve">
+    <value>Back to Login</value>
+  </data>
+  <data name="ForgotPasswordConfirmationTitle" xml:space="preserve">
+    <value>Email Sent</value>
+  </data>
+   <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>Password Reset Email Sent</value>
+  </data>
+  <data name="ForgotPasswordConfirmationMessage" xml:space="preserve">
+    <value>Password reset link has been sent to your email. Please check your email.</value>
+  </data>
+  <data name="ResetPasswordTitle" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ResetPasswordSubject" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ResetPasswordMessage" xml:space="preserve">
+    <value>Please reset your password by clicking the following link: </value>
+  </data>
+  <data name="ResetPasswordConfirmationTitle" xml:space="preserve">
+    <value>Password Reset Successful</value>
+  </data>
+  <data name="ResetPasswordConfirmationMessage" xml:space="preserve">
+    <value>Your password has been reset successfully. You can now login with your new password.</value>
+  </data>
 </root>
