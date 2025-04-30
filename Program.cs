@@ -94,8 +94,8 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[] { "tr", "en" };
-    options.SetDefaultCulture("tr")
+    var supportedCultures = new[] { "tr-tr", "en-us" };
+    options.SetDefaultCulture("tr-tr")
            .AddSupportedCultures(supportedCultures)
            .AddSupportedUICultures(supportedCultures);
     options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider()
