@@ -1,4 +1,6 @@
 ﻿@inject IStringLocalizer<HomeController> Localizer
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = Localizer["HomePageTitle"];
 }
@@ -18,8 +20,14 @@
                         <div class="p-5">
                             <h2 class="fw-bold mb-4">@Localizer["EasyNoteTakingTitle"]</h2>
                             <p class="mb-4">@Localizer["EasyNoteTakingDescription"]</p>
-                            <a asp-controller="Notes" asp-action="Index"
-                                class="btn btn-light">@Localizer["StartNow"]</a>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-controller="Notes" asp-action="Index" class="btn btn-light">@Localizer["StartNow"]</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-light">@Localizer["StartNow"]</a>
+                            }
                         </div>
                     </div>
                     <div class="col-md-6">
