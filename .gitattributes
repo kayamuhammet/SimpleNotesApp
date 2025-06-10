@@ -1,0 +1,5 @@
+# .cshtml dosyalarını C# olarak algıla
+*.cshtml linguist-language=C#
+
+wwwroot/js/* linguist-vendored
+wwwroot/css/* linguist-vendored
